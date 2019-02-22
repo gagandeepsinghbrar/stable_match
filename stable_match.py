@@ -42,13 +42,19 @@ class CountStableMatches():
 
 		for b in range(len(self.allCombinations)):
 
+			# assuming that we will keep checking
 			TokeepChecking=True
 
+
+			# iterating over the particular men in the first batch of permutation
 			for n in range(len(self.allCombinations[b])):
+
 
 
 				if not TokeepChecking:
 					break
+
+
 				# allCombinations[b] is tuple ( 3 4 1 2 )
 
 				# allCombinations[b][0] is 3 the women
@@ -64,26 +70,15 @@ class CountStableMatches():
 				women=self.allCombinations[b][n]
 
 				
-				
 				# her index in man preference 
 				
 				women_index=man_list.index(women)
 
-				
-
-				
-
-
 				if man_list[:women_index]:
 
 
-					
-
 					# moving backwards
 					for _ in range(women_index-1,-1,-1):
-
-						
-
 
 						
 						w_value=man_list[_]
@@ -94,8 +89,6 @@ class CountStableMatches():
 
 						women_list=self.women_preferences[w_index]
 
-						
-						
 
 						w_suspect_index_in_wp=women_list.index(n+1)
 
@@ -113,22 +106,6 @@ class CountStableMatches():
 						
 		print(self.count)
 		return self.count
-
-
-
-
-
-
-
-
-
-			
-
-	def countIt(self):
-		pass
-
-
-				
 
 
 
