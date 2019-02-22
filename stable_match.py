@@ -22,8 +22,8 @@ class CountStableMatches():
 			self.allCombinations = list(it.permutations(range(1, self.n+1)))
 			
 			# got men preferences and women preferences
-			self.men_preferences=[map(lambda num: int(num),inputFile.readline().split(" ")) for i in range(self.n)]
-			self.women_preferences=[map(lambda num: int(num),inputFile.readline().split(" ")) for i in range(self.n)]
+			self.men_preferences=[list(map(lambda num: int(num),inputFile.readline().split(" "))) for i in range(self.n)]
+			self.women_preferences=[list(map(lambda num: int(num),inputFile.readline().split(" "))) for i in range(self.n)]
 
 
 
@@ -45,29 +45,56 @@ class CountStableMatches():
 
 			for n in range(len(self.allCombinations[b])):
 
+
+
+
+
+
+
+
 				# start checking the man in that batch
+				man_list=self.men_preferences[n]
 
-				index_of_women_already_matched=self.men_preferences[n].index(self.allCombinations[b][n])
+				
+				# women we are checking 
 
-				print(index_of_women_already_matched)
-				if self.men_preferences[n][:index_of_women_already_matched]:
+				women=self.allCombinations[b][n]
+				
+				
+				women_index=man_list.index(women)
 
-					for backingUpIndex in range(index_of_women_already_matched,-1,-1):
+				
+				print(self.allCombinations[b])
+				print(women_index)
 
 
-						currently_checking=self.men_preferences[n][backingUpIndex]
+				if man_list[:women_index]:
 
-						home_address=self.women_preferences[self.men_preferences[n][index_of_women_already_matched]-1] 
+
+
+
+
+
+					for back_index in range(women_index,-1,-1):
+
+
+
+
+						# print(man_list)
+						w_value=man_list[back_index]
+						 
+
+						# home_address=self.women_preferences[man_list[women_index]-1] 
 						
 						
 
 
-						# target man to find in women's house
-						t=self.allCombinations[b].index(currently_checking)+1
+						# # target man to find in women's house
+						# t=self.allCombinations[b].index(currently_checking)+1
 
-						if self.allCombinations[b].index(self.men_preferences[n][backingUpIndex])+1 in home_address[:home_address.index(t)]:
-							print("cheater")
-
+						# if self.allCombinations[b].index(self.man_list[back_index])+1 in home_address[:home_address.index(t)]:
+						# 	print("cheater")
+			print("------")
 
 
 
