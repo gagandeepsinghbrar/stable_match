@@ -51,9 +51,6 @@ class CountStableMatches():
 				# allCombinations[b][0] is 3 the women
 
 
-
-
-
 				# preference list for man currently [ 4 3 1 2 ]
 				man_list=self.men_preferences[n]
 
@@ -69,36 +66,54 @@ class CountStableMatches():
 
 
 
-				print(self.allCombinations[b])
-				print(women_index)
+				
 
 
 				if man_list[:women_index]:
 
 
+					# moving backwards
+					for _ in range(women_index-1,-1,-1):
 
 
 
 
-					for back_index in range(women_index,-1,-1):
-
-
-
-
-						# print(man_list)
-						w_value=man_list[back_index]
-						 
-
-						# home_address=self.women_preferences[man_list[women_index]-1] 
 						
+						w_value=man_list[_]
 						
 
+						w_index=w_value-1
 
-						# # target man to find in women's house
-						# t=self.allCombinations[b].index(currently_checking)+1
 
-						# if self.allCombinations[b].index(self.man_list[back_index])+1 in home_address[:home_address.index(t)]:
-						# 	print("cheater")
+						women_list=self.women_preferences[w_index]
+
+
+						w_suspect_index_in_wp=women_list.index(n+1)
+
+
+
+						if women_list[:w_suspect_index_in_wp]:
+							
+
+
+							print(man_list)
+
+
+
+
+							if n+1 in women_list[:w_suspect_index_in_wp]:
+
+								print("cheated")
+						else:
+							break
+
+
+
+
+
+
+				
+
 			print("------")
 
 
@@ -111,7 +126,7 @@ class CountStableMatches():
 
 			
 
-	def checkIfValid(self):
+	def countIt(self):
 		pass
 
 
