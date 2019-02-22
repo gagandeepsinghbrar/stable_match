@@ -46,24 +46,29 @@ class CountStableMatches():
 			for n in range(len(self.allCombinations[b])):
 
 
+				# allCombinations[b] is tuple ( 3 4 1 2 )
+
+				# allCombinations[b][0] is 3 the women
 
 
 
 
 
-
-				# start checking the man in that batch
+				# preference list for man currently [ 4 3 1 2 ]
 				man_list=self.men_preferences[n]
 
 				
-				# women we are checking 
+				# current women 
 
 				women=self.allCombinations[b][n]
 				
+				# her index in man preference 
 				
 				women_index=man_list.index(women)
 
-				
+
+
+
 				print(self.allCombinations[b])
 				print(women_index)
 
