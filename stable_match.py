@@ -3,126 +3,151 @@ import itertools as it
 
 class CountStableMatches():
 
+	# Constructor takes any file name and multiple instances of this class can be spawned
+
 	def __init__(self,filename):
-
+		
 		self.filename=filename
-		self.count=0
+		
 
+	"""
+	Reads the text file and stores the numbers as lists.
+	"""
 	def readFile(self):
 
-		# open file for reading with context manager
+		# open file for reading with context manager so it closes it automatically later.
 
 		with open(self.filename,"r") as inputFile:
 
 
-			# get the n value as integer
+			# get the n value as integer from first line
 			self.n= int(inputFile.readline())
 
-			# get all possible combinations
+			# get all possible combinations.
 			self.allCombinations = list(it.permutations(range(1, self.n+1)))
 			
-			# got men preferences and women preferences
-			self.men_preferences=[map(lambda num: int(num),inputFile.readline().split(" ")) for i in range(self.n)]
-			self.women_preferences=[map(lambda num: int(num),inputFile.readline().split(" ")) for i in range(self.n)]
+			# got men preferences and women preferences in separate lists.
+			self.men_preferences=[list(map(lambda num: int(num),inputFile.readline().split(" "))) for i in range(self.n)]
+			self.women_preferences=[list(map(lambda num: int(num),inputFile.readline().split(" "))) for i in range(self.n)]
+
+			# calculate total possibilities so we can subtract later. Seems more natural eliminating.
+			self.count=0
+
+	"""
+
+	counts the total number of stable matches
+	Recieves responses one by one from isStable() on a yes or no basis
+	1 means Yes and 0 means no
+	adds all of them prints it
 
 
-
+	"""
 	def countTotal(self):
 
-		"""
+
+		for batch in self.allCombinations:
+
+			self.count+=self.isStable(batch)
 
 
-		b ->  combination entire batch index ( Item number from permutations )
-		n ->  combination list men value ( tricked with index )
-		n+1 ->combination list real men value
-		self.allCombinations[b][n] -> combination list women value
-		
+		print(self.count)
+		return self.count
 
-		"""
+	"""
 
-		for b in range(len(self.allCombinations)):
+	Checks through all the suspects and makes sure none of them cheats
 
 
-			for n in range(len(self.allCombinations[b])):
-
-				# start checking the man in that batch
-
-				index_of_women_already_matched=self.men_preferences[n].index(self.allCombinations[b][n])
-
-				print(index_of_women_already_matched)
-				if self.men_preferences[n][:index_of_women_already_matched]:
-
-					for backingUpIndex in range(index_of_women_already_matched,-1,-1):
+	"""
+	def isStable(self,batch):
 
 
-						currently_checking=self.men_preferences[n][backingUpIndex]
+		# get indexes and values in one shot
+		e=enumerate(batch)
 
-						home_address=self.women_preferences[self.men_preferences[n][index_of_women_already_matched]-1] 
-						
-						
+		# start checking 
+		for m,w in e:
+			# m refers to men index on the top
+			# w refers to the women value in the list
+
+			# Respective men preference list that we need to worry about.
+			nth_men_list = self.men_preferences[m]
+
+			# check what is the index of his women he is married to.
+			w_index_inside= nth_men_list.index(w)
+
+			# Check his desires list. Which means slice the list from beginning excluding his current choice
+			suspects=nth_men_list[:w_index_inside]
+
+			# Only if there are any suspects. We need to investigate
+			if suspects:
+				# Investigation Starts : We need to check if the first suspect likes our man
+				for suspect in suspects:
+					# Locate where the women lives.
+					women_house=self.women_preferences[suspect-1]
+
+					# who was our man again? Oh got it ! 
+					man_search=m+1
+
+					# See where the guy who is trying to steal the girl is sitting. Got skills or nah ?
+					flirt_index=women_house.index(man_search)
+
+					# So this is the name or actual number of our fiance
+					fiance_value = batch.index(suspect) + 1
+
+					# But where is the fiance living?
+					fiance_index=women_house.index(fiance_value)
+
+					# If flirt is preferred than the fiance
+					if flirt_index<fiance_index:
+						# oh well, things are rough here. Nope! Not stable
+						return 0
+		# Look ! We reached the end. That means everyone in this batch was loyal!
+		return 1
 
 
-						# target man to find in women's house
-						t=self.allCombinations[b].index(currently_checking)+1
-
-						if self.allCombinations[b].index(self.men_preferences[n][backingUpIndex])+1 in home_address[:home_address.index(t)]:
-							print("cheater")
 
 
 
-
-
-
-
-
-
-
-			
-
-	def checkIfValid(self):
-		pass
-
-
-				
-
-
+# Look dude, If you import my class this thing should not run. Only if you execute it directly.
 
 if __name__=="__main__":
+	# Let's create an instance of stable matching problem and give it an input.
 	prob=CountStableMatches("input1.txt")
+	# Read the file first
 	prob.readFile()
+	# If you got the data now, can we start now ? SMH ! What a slowpoke. We also got the value as return but 
+	# who cares here , I already printed it.
 	prob.countTotal()
 
 
+	# Piece of cake ! 
+
+	"""
+
+	.
+	...
+	.
+
+	...
+
+	..
+
+	  Just kidding....It was such a pain !
 
 
-
-
-
-
-
-
-# for batchNo in range(len(allCombinations)):
-	
-# 	# looping over that particular combination
-
-# 	for n in range(len(allCombinations[batchNo])):
-
-
-
-		
-		
-# 		i_of_women=men_preferences[n].index(allCombinations[batchNo][n])
-# 		# n[:i] gives cheaters on the left
-# 		if men_preferences[n][:i_of_women]:
-
-# 			for jump in range(i_of_women,-1,-1):
-
-# 				# men_preferences[n][jump]-1   -> index of suspected women
-# 				#allCombinations[batchNo].index(men_preferences[n][jump])+1 -> who is she matched with
-
-
+	"""
 
 				
+
+
+
+
+
+
+
+
+
 
 
 
