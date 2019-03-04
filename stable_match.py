@@ -1,3 +1,22 @@
+"""
+<><><><><<><><><>< DO NOT REPLICATE <><><><><<><><><><
+
+	 This code finds the total number of stable matches 
+	 that are possible given a matrix of n sized.
+
+	 n x n -> men preferences
+	 n x n -> women preferences
+
+
+	Inputs: File name with file containing size of matrix as first line
+			Men preferences for the next n lines
+			Women preferences for the next n lines.
+
+	Output : Total number of stable matches possible.
+
+
+<><><><><<><><><><<><><><><<><><><><<><><><><<><><><><
+"""
 
 import itertools as it
 
@@ -137,42 +156,3 @@ if __name__=="__main__":
 
 
 	"""
-
-				
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-				
-
-
-
-
-
-
-		
-		
-
-
-
-
-
-
-
-	
-
-
-
