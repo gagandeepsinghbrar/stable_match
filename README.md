@@ -1,4 +1,4 @@
-Stable Match Counting : 
+<b> Stable Match Counting  </b>: 
 
 This project uses brute force to find all the possible stable matches possible in an nxn Matrix.
 
